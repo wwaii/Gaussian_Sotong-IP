@@ -16,13 +16,7 @@ public class PlayerMovement : MonoBehaviour
     public LayerMask groundMask;
 
     Vector3 velocity;
-    bool isGrounded;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public bool isGrounded;
 
     // Update is called once per frame
     void Update()
@@ -49,5 +43,19 @@ public class PlayerMovement : MonoBehaviour
         velocity.y += gravity * Time.deltaTime;
 
         controller.Move(velocity * Time.deltaTime);
+    }
+
+    void noSteping()
+    {
+        controller.stepOffset = 0;
+    }
+
+    private void OnControllerColliderHit(ControllerColliderHit hit)
+    {
+        if (hit.gameObject.tag == "Chicken")
+        {
+            Debug.Log(hit.gameObject.name);
+            noSteping();
+        }
     }
 }

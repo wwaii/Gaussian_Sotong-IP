@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerRaycasting : MonoBehaviour
+public class PlayerBehaviour : MonoBehaviour
 {
 
     public Camera playerCamera;
@@ -19,9 +19,7 @@ public class PlayerRaycasting : MonoBehaviour
         int layerMask = 1 << LayerMask.NameToLayer("IntObject");
 
         RaycastHit hitInfo;
-        if (Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out hitInfo, interactionDistance
-            //, layerMask
-            ))
+        if (Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out hitInfo, interactionDistance, layerMask))
         {
             Debug.Log(hitInfo.transform.name);
 
@@ -31,4 +29,7 @@ public class PlayerRaycasting : MonoBehaviour
             }
         }
     }
+
+
+
 }
