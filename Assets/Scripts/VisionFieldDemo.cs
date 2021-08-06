@@ -1,8 +1,15 @@
+/******************************************************************************
+Author: Elyas Chua-Aziz
+Name of Class: VisionField.cs
+Description of Class: Controls the behaviour of the vision field attached to the AI
+Date Created: 17/07/21
+******************************************************************************/
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class VisionField : MonoBehaviour
+public class VisionFieldDemo : MonoBehaviour
 {
     // When player enters the trigger, tell AI to chase
     // When player leaves the trigger, tell AI to sop chasing
@@ -11,17 +18,15 @@ public class VisionField : MonoBehaviour
     /// Stores the AI that this VisionField should update
     /// </summary>
     [SerializeField]
-    private Chicken chicken;
+    private PatrolAI connectedAI;
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log(other.name);
         // tell AI to chase
-        if (other.tag == "Player")
+        if(other.tag == "Player")
         {
             // Passes the seen player to the AI via the SeePlayer function
-            //chicken.SeePlayer(other.transform);
-            Debug.Log("seen");
+            connectedAI.SeePlayer(other.transform);
         }
     }
 
@@ -31,7 +36,7 @@ public class VisionField : MonoBehaviour
         if (other.tag == "Player")
         {
             // Tells the AI that the player was lost
-            //chicken.LostPlayer();
+            connectedAI.LostPlayer();
         }
     }
 }

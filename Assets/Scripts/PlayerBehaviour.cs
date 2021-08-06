@@ -4,13 +4,19 @@ using UnityEngine;
 
 public class PlayerBehaviour : MonoBehaviour
 {
-
+    public bool darukFollow;
+    public bool miphaFollow;
+    public bool withSeed;
     public Camera playerCamera;
 
     public int interactionDistance;
     void Update()
     {
         InteractionRaycast();
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            darukFollow = true;
+        }
     }
 
     private void InteractionRaycast()
