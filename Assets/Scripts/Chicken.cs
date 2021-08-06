@@ -14,9 +14,13 @@ public class Chicken : MonoBehaviour
     [SerializeField]
     private float idleTime;
 
-    public Transform body;
+    public Transform target;
 
     private NavMeshAgent agentComponent;
+
+    public PlayerBehaviour connectedPlayer;
+
+    public GameObject chickenPrefab;
 
     private void Awake()
     {
@@ -42,6 +46,16 @@ public class Chicken : MonoBehaviour
             currentState = nextState;
             StartCoroutine(currentState);
         }
+
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            SpawnChicken();
+        }
+
+        //set timer (2val, currentime and cooldown)
+        //when player hit chicken , currenttime = 0
+        //player move away, += deltatime (cooldown) until = cooldown
+        //when both = , do condition
     }
 
 
@@ -61,6 +75,7 @@ public class Chicken : MonoBehaviour
                      
             // Change to Patrolling state.
             nextState = "Wandering";
+
         }
     }
 
@@ -74,7 +89,26 @@ public class Chicken : MonoBehaviour
         nextState = "Idle";
     }
 
+    IEnumerator ChasingPlayer()
+    {
+        while (currentState == "ChasingPlayer")
+        {
+            // This while loop will contain the ChasingPlayer behaviour
 
+            yield return null;
+
+            // If there is a player to chase, keep chasing the player
+            if (target != null)
+            {
+                agentComponent.SetDestination(target.position);
+            }
+            // If not, move back to the Idle state
+            else
+            {
+                nextState = "Idle";
+            }
+        }
+    }
     public static Vector3 RandomNavSphere(Vector3 origin, float dist, int layermask)
     {
         Vector3 randDirection = Random.insideUnitSphere * dist;
@@ -83,4 +117,31 @@ public class Chicken : MonoBehaviour
         NavMesh.SamplePosition(randDirection, out navHit, dist, layermask);
         return navHit.position;
     }
+
+    public void SeePlayer(Transform seenPlayer)
+    {
+        // Store the seen player and change the state of the AI
+        target = seenPlayer;
+        nextState = "ChasingPlayer";
+    }
+
+    /// <summary>
+    /// Used to tell the AI that it lost the player
+    /// </summary>
+    public void LostPlayer()
+    {
+        // Set the seen player to null
+        target = null;
+    }
+
+    public void SpawnChicken()
+    {
+        for (int i = 0; i < 3; i++)
+        {
+            Instantiate(chickenPrefab, new Vector3(i * 2.0F, 0, 0), Quaternion.identity);
+        }
+    }
+
+
+
 }

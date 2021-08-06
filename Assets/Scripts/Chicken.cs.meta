@@ -3,7 +3,10 @@ guid: 5fc7d74bbe744614f94172c8c3e91837
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - target: {instanceID: 0}
+  - connectedPlayer: {instanceID: 0}
+  - chickenPrefab: {fileID: 3607049256763418444, guid: b97ec924fe4fa6341b8a16a2b9f670d1, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
