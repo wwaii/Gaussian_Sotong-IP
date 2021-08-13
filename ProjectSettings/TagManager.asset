@@ -6,6 +6,17 @@ TagManager:
   tags:
   - Chicken
   - Banana
+  - Fish
+  - Mushrooms
+  - Panel
+  - Daruk
+  - Mipha
+  - Wood
+  - Potion
+  - Seed
+  - Micheal
+  - Martin
+  - Fairy
   layers:
   - Default
   - TransparentFX
@@ -17,7 +28,7 @@ TagManager:
   - Ground
   - IntObject
   - Ignore
-  - 
+  - Forest
   - 
   - 
   - 

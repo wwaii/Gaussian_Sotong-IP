@@ -7,23 +7,35 @@ public class PlayerMovement : MonoBehaviour
 
     public CharacterController controller;
 
-    public float speed = 12;
-    public float gravity = -9.81f;
+    public float speed;
+    public float gravity;
     public float jumpHeight = 3f;
 
     public Transform groundCheck;
     public float groundDistance = 0.4f;
     public LayerMask groundMask;
+    public LayerMask forestMask;
 
     Vector3 velocity;
     public bool isGrounded;
+    public bool inForest;
 
     // Update is called once per frame
     void Update()
     {
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
+        inForest = Physics.CheckSphere(groundCheck.position, groundDistance, forestMask);
 
-        if(isGrounded && velocity.y < 0)
+        if (inForest)
+        {
+            speed = 15;
+        }
+        else
+        {
+            speed = 10;
+        }
+
+        if (isGrounded && velocity.y < 0)
         {
             velocity.y = -2f;
         }
